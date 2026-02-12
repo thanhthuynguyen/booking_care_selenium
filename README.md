@@ -10,6 +10,6 @@ Automated testing framework for Booking Care platform built with Selenium WebDri
 Clone the repository and install dependencies:
 ```bash
 git clone git@github.com:thanhthuynguyen/booking_care_selenium.git
-cd booking_care_selenium
+
 
 
