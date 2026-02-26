@@ -21,3 +21,9 @@ For optimal stability and compatibility with Java 21, this project utilizes:
 Clone the repository and install dependencies:
 ```bash
 git clone git@github.com:thanhthuynguyen/booking_care_selenium.git
+
+## Development Workflow
+
+1. Create a new branch from `development`
+2. Implement the feature
+3. Open a Pull Request into `development`
