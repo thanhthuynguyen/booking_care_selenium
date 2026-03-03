@@ -11,6 +11,7 @@ public class TopBarNavigation extends BasePage {
     private By byLnkRegister = By.xpath("//a[h3[text()='Đăng Ký']]");
     private By byLnkLogin = By.xpath("//a[h3[text()='Đăng Nhập']]");
     private By byLnkLogout = By.xpath("//a[h3[text()='Đăng xuất']]");
+    private By byLnkBooking = By.xpath("//a[text()='Đặt lịch khám']");
     public TopBarNavigation(WebDriver driver) {
         super(driver);
     }
@@ -29,5 +30,9 @@ public class TopBarNavigation extends BasePage {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    public void navigateBookingPage() {
+        click(byLnkBooking);
     }
 }
