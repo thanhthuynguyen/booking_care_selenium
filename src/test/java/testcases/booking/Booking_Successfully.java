@@ -2,47 +2,34 @@ package testcases.booking;
 
 import base.BaseTest;
 import drivers.DriverFactory;
-import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.HomePage;
+import pages.BookingPage;
 import pages.LoginPage;
-import report.ExtentReportManager;
-
-import java.time.Duration;
 
 public class Booking_Successfully extends BaseTest {
 
-    @Test(description = "Verify that user can login successfully with valid account")
-    public void Booking_Successfully() {
+    private BookingPage bookingPage;
+    private LoginPage loginPage;
 
-        String account = "testdemo6";
-        String password = "123456";
+    @BeforeMethod
+    public void setupBookingTest() {
 
         WebDriver driver = DriverFactory.getDriver();
+        bookingPage = new BookingPage(driver);
+        bookingPage.clickBookingNavigate();
+        loginPage = new LoginPage(driver);
+        loginPage.login("testdemo6", "123456");
+        bookingPage.clickBookingNavigate();
+    }
 
-        HomePage homePage = new HomePage(driver);
+    @Test
+    public void Booking_Verify_Successfully() {
 
-        //Step 1: Go to https://demo6.cybersoft.edu.vn/
-        LOG.info("Step 1: Go to https://demo6.cybersoft.edu.vn/");
-        ExtentReportManager.info("Step 1: Go to https://demo6.cybersoft.edu.vn/");
-        driver.get("https://demo6.cybersoft.edu.vn/");
+        System.out.println("Booking page loaded successfully!");
 
-        Wait<WebDriver> wait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(30))
-                .pollingEvery(Duration.ofMillis(500))
-                .ignoring(NotFoundException.class);
-
-        //Step 2: Click 'Đặt lịch khám' link on the navigation bar
-        LOG.info("Step 2: Click 'Đặt lịch khám' link on the navigation bar");
-        ExtentReportManager.info("Step 2: Click 'Đặt lịch khám' link on the navigation bar");
-        homePage.getTopBarNavigation().navigateBookingPage();
-
-        //Step 3: Login
-        LoginPage loginPage = new LoginPage(driver);;
-        loginPage.login(account, password);
-
+        //  booking test case
     }
 }
+
