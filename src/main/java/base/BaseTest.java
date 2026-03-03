@@ -15,48 +15,53 @@ import java.lang.reflect.Method;
 public class BaseTest {
 
     protected final Logger LOG = LogManager.getLogger(getClass());
+    protected final String BASE_URL = "https://demo6.cybersoft.edu.vn";
 
     @BeforeSuite
     public void beforeSuite() {
         ExtentReportManager.initializeExtentReports();
     }
 
-    @BeforeTest
     @Parameters({"browser"})
-    public void setup(@Optional("chrome") String browser) throws Exception {
-        LOG.info("[Thread-" + Thread.currentThread().threadId() + "]Setup executed...");
+    @BeforeMethod
+    public void setup(@Optional("chrome") String browser, Method method) throws Exception {
+
+        LOG.info("[Thread-" + Thread.currentThread().threadId() + "] Setup executed...");
+
         DriverManager driverManager = DriverManagerFactory.getDriverManager(browser);
         driverManager.createDriver();
         WebDriver driver = driverManager.getDriver();
         DriverFactory.setDriver(driver);
-        driver.manage().window().maximize();
-    }
 
-    @BeforeMethod
-    public void beforeMethod(Method method) {
+        driver.manage().window().maximize();
+        driver.get(BASE_URL);
+
         ExtentReportManager.createTest(method.getName());
     }
 
     @AfterMethod
-    public void afterMethod(ITestResult result) {
+    public void teardown(ITestResult result) {
+
         LOG.info("Test completed");
-        if(result.getStatus() == ITestResult.FAILURE) {
-            ExtentReportManager.captureScreenshot(DriverFactory.getDriver(), result.getMethod().getMethodName());
+
+        if (result.getStatus() == ITestResult.FAILURE) {
+            ExtentReportManager.captureScreenshot(
+                    DriverFactory.getDriver(),
+                    result.getMethod().getMethodName()
+            );
             ExtentReportManager.fail(result.getThrowable().toString());
         }
-    }
 
-    @AfterTest
-    public void teardown() {
-        LOG.info("Teardown executed...");
         WebDriver driver = DriverFactory.getDriver();
-        if(driver != null) {
+        if (driver != null) {
             driver.quit();
         }
+
+        DriverFactory.removeDriver();
     }
 
     @AfterSuite
     public void afterSuite() {
-        ExtentReportManager.flushReports(); // tong ket report
+        ExtentReportManager.flushReports();
     }
 }

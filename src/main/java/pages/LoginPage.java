@@ -31,11 +31,11 @@ public class LoginPage extends CommonPage {
     }
 
     public void enterAcount(String account) {
-        senKeys(byTxtAccountLogin, account);
+        sendKeys(byTxtAccountLogin, account);
     }
 
     public void enterPassword(String password) {
-        senKeys(byTxtPasswordLogin, password);
+        sendKeys(byTxtPasswordLogin, password);
     }
 
     public void clickLogin() {

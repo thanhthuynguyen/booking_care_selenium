@@ -43,13 +43,13 @@ public class BasePage {
      * @param value
      * @param timeOutInSec - time out value in seconds
      */
-    public void senKeys(By locator, String value, long timeOutInSec)  {
+    public void sendKeys(By locator, String value, long timeOutInSec)  {
         WebElement element = waitForVisibilityOfElementLocated(locator, timeOutInSec);
         element.sendKeys(value);
     }
 
-    public void senKeys(By locator, String value)  {
-        senKeys(locator, value, WaitTimeOut.DEFAULT_TIMEOUT);
+    public void sendKeys(By locator, String value)  {
+        sendKeys(locator, value, WaitTimeOut.DEFAULT_TIMEOUT);
     }
 
     public void click(By locator, long timeOutInSec) {
