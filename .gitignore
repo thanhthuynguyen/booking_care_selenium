@@ -43,4 +43,7 @@ bin/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
+.DS_Storetest_output/
+test-output/
+test_output/
+test-output/
