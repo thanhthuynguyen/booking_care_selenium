@@ -12,4 +12,8 @@ public class DriverFactory {
     public static WebDriver getDriver() {
         return driverThreadLocal.get();
     }
+
+    public static void removeDriver() {
+        driverThreadLocal.remove();
+    }
 }
