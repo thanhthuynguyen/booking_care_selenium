@@ -39,7 +39,7 @@ public class Register01_Verify_Register_Successfully extends BaseTest {
         HomePage homePage = new HomePage(driver);
         RegisterPage registerPage = new RegisterPage(driver);
         LoginPage loginPage = new LoginPage(driver);
-        CommonDialog dialog = new CommonDialog(driver);
+        //CommonDialog dialog = new CommonDialog(driver);
 
         // Step 1: Go to: https://demo2.cybersoft.edu.vn/
         System.out.println("Step1");

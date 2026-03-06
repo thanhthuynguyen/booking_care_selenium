@@ -4,7 +4,6 @@ import drivers.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -37,9 +36,6 @@ public class CourseListingPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement lnkCourse = wait.until(ExpectedConditions.visibilityOfElementLocated(courseTitle));
         lnkCourse.click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[text()='Đăng ký']\n")));
-        new Actions(driver).pause(Duration.ofSeconds(5)).perform();
-
     }
 
 }
