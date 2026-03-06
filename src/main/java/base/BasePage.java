@@ -39,16 +39,17 @@ public class BasePage {
 
     /**
      * SendKeys action
-     * @param locator - need By locator
+     *
+     * @param locator      - need By locator
      * @param value
      * @param timeOutInSec - time out value in seconds
      */
-    public void sendKeys(By locator, String value, long timeOutInSec)  {
+    public void sendKeys(By locator, String value, long timeOutInSec) {
         WebElement element = waitForVisibilityOfElementLocated(locator, timeOutInSec);
         element.sendKeys(value);
     }
 
-    public void sendKeys(By locator, String value)  {
+    public void sendKeys(By locator, String value) {
         sendKeys(locator, value, WaitTimeOut.DEFAULT_TIMEOUT);
     }
 
@@ -64,12 +65,13 @@ public class BasePage {
     /**
      * If isDisplayed is false, action will not wait for visibility
      * Else action will wait for element is presented in DOM before clicking
+     *
      * @param locator
      * @param isDisplayed
      * @param timeOutInSec
      */
     public void click(By locator, boolean isDisplayed, long timeOutInSec) {
-        if(isDisplayed) {
+        if (isDisplayed) {
             click(locator, timeOutInSec);
         } else {
             WebElement element = waitForPresenceOfElementLocated(locator, timeOutInSec);

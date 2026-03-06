@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class CommonDialog  extends BasePage {
+public class CommonDialog extends BasePage {
 
 
     private By byLblMsgText = By.id("swal2-title");

@@ -2,15 +2,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Regression Suite" parallel="tests" thread-count="2">
     <test verbose="2" preserve-order="true" name="Run with Firefox">
-        <parameter name="browser" value="firefox" />
+        <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="testcases.login.Login01_Verify_Login_Successfully" />
+            <class name="testcases.login.Login01_Verify_Login_Successfully"/>
         </classes>
     </test>
     <test verbose="2" preserve-order="true" name="Run with Chrome">
-        <parameter name="browser" value="chrome" />
+        <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="testcases.register.Register01_Verify_Register_Successfully" />
+            <class name="testcases.register.Register01_Verify_Register_Successfully"/>
         </classes>
     </test>
 </suite>

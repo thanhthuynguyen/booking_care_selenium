@@ -54,7 +54,7 @@ public class ExtentReportManager {
     public static void captureScreenshot(WebDriver driver, String testName) {
         //kiem tra folder screenshots co ton tai ko, neu ko co thi se tao truoc folder
         File destFolder = new File(SCREENSHOT_PATH);
-        if(!destFolder.exists())
+        if (!destFolder.exists())
             destFolder.mkdirs();
 
         TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -74,7 +74,7 @@ public class ExtentReportManager {
     }
 
     public static void flushReports() {
-        if(extent != null) {
+        if (extent != null) {
             extent.flush();
         }
     }

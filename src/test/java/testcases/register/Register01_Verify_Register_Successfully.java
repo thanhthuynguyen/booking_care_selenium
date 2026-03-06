@@ -41,9 +41,9 @@ public class Register01_Verify_Register_Successfully extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         CommonDialog dialog = new CommonDialog(driver);
 
-        // Step 1: Go to: https://demo1.cybersoft.edu.vn/
+        // Step 1: Go to: https://demo2.cybersoft.edu.vn/
         System.out.println("Step1");
-        driver.get("https://demo1.cybersoft.edu.vn/");
+        driver.get("https://demo2.cybersoft.edu.vn/");
 
         // Cách 1 dùng: WebDriverWait
         //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -58,8 +58,7 @@ public class Register01_Verify_Register_Successfully extends BaseTest {
 
         // Step 2: Click "Đăng ký" link on top right
         System.out.println("Step2");
-        registerPage.getTopBarNavigation().navigateRegisterPage();
-
+//        registerPage.getTopBarNavigation().navigateRegisterPage();
 
 
         // step 3: Enter account name
