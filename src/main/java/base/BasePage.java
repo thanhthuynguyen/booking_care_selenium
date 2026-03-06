@@ -50,7 +50,7 @@ public class BasePage {
     }
 
     public void sendKeys(By locator, String value) {
-        sendKeys(locator, value, WaitTimeOut.LONG_TIMEOUT);
+        sendKeys(locator, value, WaitTimeOut.DEFAULT_TIMEOUT);
     }
 
     public void click(By locator, long timeOutInSec) {
@@ -59,7 +59,7 @@ public class BasePage {
     }
 
     public void click(By locator) {
-        click(locator, WaitTimeOut.LONG_TIMEOUT);
+        click(locator, WaitTimeOut.DEFAULT_TIMEOUT);
     }
 
     /**
@@ -80,7 +80,7 @@ public class BasePage {
     }
 
     public void click(By locator, boolean isDisplayed) {
-        click(locator, isDisplayed, WaitTimeOut.LONG_TIMEOUT);
+        click(locator, isDisplayed, WaitTimeOut.DEFAULT_TIMEOUT);
     }
 
     public String getText(By locator, long timeOutInSec) {
@@ -90,7 +90,7 @@ public class BasePage {
     }
 
     public String getText(By locator) {
-        return getText(locator, WaitTimeOut.LONG_TIMEOUT);
+        return getText(locator, WaitTimeOut.DEFAULT_TIMEOUT);
     }
 
 }
