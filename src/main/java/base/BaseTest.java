@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 public class BaseTest {
 
     protected final Logger LOG = LogManager.getLogger(getClass());
-    protected final String BASE_URL = "https://demo6.cybersoft.edu.vn";
+    protected final String BASE_URL = "https://demo2.cybersoft.edu.vn/";
 
     @BeforeSuite
     public void beforeSuite() {
@@ -34,6 +34,8 @@ public class BaseTest {
         DriverFactory.setDriver(driver);
 
         driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(java.time.Duration.ofSeconds(60));
+        driver.manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(10));
         driver.get(BASE_URL);
 
         ExtentReportManager.createTest(method.getName());
