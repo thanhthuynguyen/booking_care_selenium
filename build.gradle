@@ -21,5 +21,6 @@ test {
     useTestNG() {
         useDefaultListeners = true //dùng để tạo report testNG
         outputDirectory = file("$projectDir/test_output") // folder chứa testNG report
+        suites 'testng.xml'
     }
 }

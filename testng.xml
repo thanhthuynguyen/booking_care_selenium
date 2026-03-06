@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <test verbose="2" preserve-order="true" name="booking_care_selenium/testng.xml">
-        <classes/>
+    <test verbose="2" preserve-order="true" name="booking_care_selenium">
+        <classes>
+            <class name="testcases.course.CourseRegistrationTest">
+                <methods>
+                    <include name="registerCourseSuccessfully"/>
+                    <include name="registerDuplicateCourseShouldShowError"/>
+                </methods>
+            </class>
+<!--            <class name="testcases.login.Login01_Verify_Login_Successfully">-->
+<!--                <methods>-->
+<!--                    <include name="Login01_Login_Successfully"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--            <class name="testcases.register.Register01_Verify_Register_Successfully">-->
+<!--                <methods>-->
+<!--                    <include name="Register01_Register_Successfully"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--            <class name="testcases.search.Search_Invalid_KeyWord">-->
+<!--                <methods>-->
+<!--                    <include name="TC02_Search_With_Invalid_Keyword"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--            <class name="testcases.search.Search_Valid_KeyWord">-->
+<!--                <methods>-->
+<!--                    <include name="TC01_Search_With_Valid_Keyword"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+        </classes>
     </test>
 </suite>
