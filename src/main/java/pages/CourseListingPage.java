@@ -14,9 +14,9 @@ public class CourseListingPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    public CourseListingPage() {
+    public CourseListingPage(WebDriver driver) {
         this.driver = DriverFactory.getDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(15));
     }
 
     // locator
