@@ -48,10 +48,10 @@ public class LoginPage extends CommonPage {
         clickLogin();
     }
 
-    public void getLogoutLink() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        WebElement lnkLogout = wait.until(ExpectedConditions.visibilityOfElementLocated(byLnkLogout));
-        Assert.assertTrue(lnkLogout.isDisplayed(), "Log out link not display");
-    }
+//    public void getLogoutLink() {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+//        WebElement lnkLogout = wait.until(ExpectedConditions.visibilityOfElementLocated(byLnkLogout));
+//        Assert.assertTrue(lnkLogout.isDisplayed(), "Log out link not display");
+//    }
 
 }
