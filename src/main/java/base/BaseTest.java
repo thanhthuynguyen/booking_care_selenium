@@ -5,12 +5,16 @@ import drivers.DriverManager;
 import drivers.DriverManagerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import report.ExtentReportManager;
 
 import java.lang.reflect.Method;
+import java.time.Duration;
 
 public class BaseTest {
 
@@ -34,9 +38,20 @@ public class BaseTest {
         DriverFactory.setDriver(driver);
 
         driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(java.time.Duration.ofSeconds(60));
-        driver.manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(10));
+
+        // Timeout configuration
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        LOG.info("Opening URL: " + BASE_URL);
+
         driver.get(BASE_URL);
+
+        // Explicit wait to ensure the DOM has loaded.
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+
+        LOG.info("Page loaded successfully");
 
         ExtentReportManager.createTest(method.getName());
     }
