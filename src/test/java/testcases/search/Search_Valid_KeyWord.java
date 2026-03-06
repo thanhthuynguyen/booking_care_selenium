@@ -7,11 +7,9 @@ import org.testng.annotations.Test;
 import pages.ResultPage;
 import pages.SearchPage;
 
-public class SearchValidKeyWord extends BaseTest {
+public class Search_Valid_KeyWord extends BaseTest {
     @Test
     public void TC01_Search_With_Valid_Keyword() throws InterruptedException {
-        //DriverFactory.getDriver().get("https://demo2.cybersoft.edu.vn/");
-
         String keyword = "test";
         SearchPage searchPage = new SearchPage(DriverFactory.getDriver());
         ResultPage resultPage = searchPage.search(keyword);

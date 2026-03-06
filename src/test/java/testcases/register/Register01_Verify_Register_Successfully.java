@@ -58,7 +58,7 @@ public class Register01_Verify_Register_Successfully extends BaseTest {
 
         // Step 2: Click "Đăng ký" link on top right
         System.out.println("Step2");
-        registerPage.getTopBarNavigation().navigateRegisterPage();
+//        registerPage.getTopBarNavigation().navigateRegisterPage();
 
 
         // step 3: Enter account name

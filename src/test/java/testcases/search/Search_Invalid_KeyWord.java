@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import pages.ResultPage;
 import pages.SearchPage;
 
-public class SearchInvalidKeyWord extends BaseTest {
+public class Search_Invalid_KeyWord extends BaseTest {
     @Test
     public void TC02_Search_With_Invalid_Keyword() throws InterruptedException {
 
