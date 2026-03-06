@@ -2,7 +2,7 @@ package drivers;
 
 public class DriverManagerFactory {
     public static DriverManager getDriverManager(String browser) throws Exception {
-        if(browser.equals("chrome")) {
+        if (browser.equals("chrome")) {
             return new ChromeDriverManager();
         } else if (browser.equals("firefox")) {
             return new FirefoxDriverManager();

@@ -39,17 +39,18 @@ public class BasePage {
 
     /**
      * SendKeys action
-     * @param locator - need By locator
+     *
+     * @param locator      - need By locator
      * @param value
      * @param timeOutInSec - time out value in seconds
      */
-    public void sendKeys(By locator, String value, long timeOutInSec)  {
+    public void sendKeys(By locator, String value, long timeOutInSec) {
         WebElement element = waitForVisibilityOfElementLocated(locator, timeOutInSec);
         element.sendKeys(value);
     }
 
-    public void sendKeys(By locator, String value)  {
-        sendKeys(locator, value, WaitTimeOut.DEFAULT_TIMEOUT);
+    public void sendKeys(By locator, String value) {
+        sendKeys(locator, value, WaitTimeOut.LONG_TIMEOUT);
     }
 
     public void click(By locator, long timeOutInSec) {
@@ -58,18 +59,19 @@ public class BasePage {
     }
 
     public void click(By locator) {
-        click(locator, WaitTimeOut.DEFAULT_TIMEOUT);
+        click(locator, WaitTimeOut.LONG_TIMEOUT);
     }
 
     /**
      * If isDisplayed is false, action will not wait for visibility
      * Else action will wait for element is presented in DOM before clicking
+     *
      * @param locator
      * @param isDisplayed
      * @param timeOutInSec
      */
     public void click(By locator, boolean isDisplayed, long timeOutInSec) {
-        if(isDisplayed) {
+        if (isDisplayed) {
             click(locator, timeOutInSec);
         } else {
             WebElement element = waitForPresenceOfElementLocated(locator, timeOutInSec);
@@ -78,7 +80,7 @@ public class BasePage {
     }
 
     public void click(By locator, boolean isDisplayed) {
-        click(locator, isDisplayed, WaitTimeOut.DEFAULT_TIMEOUT);
+        click(locator, isDisplayed, WaitTimeOut.LONG_TIMEOUT);
     }
 
     public String getText(By locator, long timeOutInSec) {
@@ -88,7 +90,7 @@ public class BasePage {
     }
 
     public String getText(By locator) {
-        return getText(locator, WaitTimeOut.DEFAULT_TIMEOUT);
+        return getText(locator, WaitTimeOut.LONG_TIMEOUT);
     }
 
 }

@@ -31,10 +31,10 @@ public class Login01_Verify_Login_Successfully extends BaseTest {
 
         HomePage homePage = new HomePage(driver);
 
-        //Step 1: Go to https://demo1.cybersoft.edu.vn/
-        LOG.info("Step 1: Go to https://demo1.cybersoft.edu.vn/");
-        ExtentReportManager.info("Step 1: Go to https://demo1.cybersoft.edu.vn/");
-        driver.get("https://demo1.cybersoft.edu.vn/");
+        //Step 1: Go to https://demo2.cybersoft.edu.vn/
+        LOG.info("Step 1: Go to https://demo2.cybersoft.edu.vn/");
+        ExtentReportManager.info("Step 1: Go to https://demo2.cybersoft.edu.vn/");
+        driver.get("https://demo2.cybersoft.edu.vn/");
 
         Wait<WebDriver> wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(30))
@@ -48,7 +48,8 @@ public class Login01_Verify_Login_Successfully extends BaseTest {
 
 
         //Step 3: Login
-        LoginPage loginPage = new LoginPage(driver);;
+        LoginPage loginPage = new LoginPage(driver);
+        ;
         loginPage.login(account, "123456");
 
         //Step 6: Verify user login successfully

@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 public class BaseTest {
 
     protected final Logger LOG = LogManager.getLogger(getClass());
-    protected final String BASE_URL = "https://demo6.cybersoft.edu.vn";
+    protected final String BASE_URL = "https://demo2.cybersoft.edu.vn/";
 
     @BeforeSuite
     public void beforeSuite() {

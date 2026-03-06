@@ -16,7 +16,7 @@ public class LoginPage extends CommonPage {
     private By byTxtAccountLogin = By.id("taiKhoan");
     private By byTxtPasswordLogin = By.id("matKhau");
     private By byBtnLogin = By.xpath("//button[span[text()='Đăng nhập']]");
-//    private By byLblLoginMsg = By.id("swal2-title");
+    //    private By byLblLoginMsg = By.id("swal2-title");
     private By byLnkLogout = By.xpath("//a[h3[text()='Đăng xuất']]");
     //private By byLblUserProfile = By.xpath("//a/h3[text()='" + fullname + "']");
 
