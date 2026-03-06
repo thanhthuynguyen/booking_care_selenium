@@ -34,6 +34,8 @@ public class BaseTest {
         DriverFactory.setDriver(driver);
 
         driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(java.time.Duration.ofSeconds(60));
+        driver.manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(10));
         driver.get(BASE_URL);
 
         ExtentReportManager.createTest(method.getName());

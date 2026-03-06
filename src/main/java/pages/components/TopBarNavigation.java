@@ -31,4 +31,8 @@ public class TopBarNavigation extends BasePage {
             return false;
         }
     }
+
+    public void navigateBookingPage() {
+        click(byLnkBooking);
+    }
 }
