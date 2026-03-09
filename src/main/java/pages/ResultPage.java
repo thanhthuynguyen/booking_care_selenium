@@ -19,12 +19,25 @@ public class ResultPage extends CommonPage {
         super(driver);
     }
 
+    // lấy text hiển thị số kết quả
     public String getResultCountText() {
+        waitForVisibilityOfElementLocated(txtResultCount, 10);
         return getText(txtResultCount);
     }
 
+    // lấy danh sách title khóa học
     public List<String> getCourseTitles() {
         List<WebElement> elements = driver.findElements(courseTitles);
         return elements.stream().map(WebElement::getText).collect(Collectors.toList());
+    }
+
+    // đếm số khóa học hiển thị
+    public int getTotalCources() {
+        return driver.findElements(courseTitles).size();
+    }
+
+    // kiểm tra không có kết quả
+    public boolean isNoResult() {
+        return getResultCountText().contains("0");
     }
 }
