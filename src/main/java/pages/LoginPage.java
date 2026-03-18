@@ -24,6 +24,10 @@ public class LoginPage extends CommonPage {
         super(driver);
     }
 
+    public void open() {
+        driver.get("https://demo2.cybersoft.edu.vn/login");
+    }
+
     public void clickLoginLink() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement lnkLogin = wait.until(ExpectedConditions.visibilityOfElementLocated(byLnkLogin));

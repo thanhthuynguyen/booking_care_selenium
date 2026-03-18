@@ -38,4 +38,8 @@ public class CourseListingPage {
         lnkCourse.click();
     }
 
+    public void clickCourseItem(int index) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(courseCardTitle)).get(index).click();
+    }
 }

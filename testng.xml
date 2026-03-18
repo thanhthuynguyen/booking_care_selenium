@@ -9,26 +9,23 @@
                     <include name="registerDuplicateCourseShouldShowError"/>
                 </methods>
             </class>
-<!--            <class name="testcases.login.Login01_Verify_Login_Successfully">-->
-<!--                <methods>-->
-<!--                    <include name="Login01_Login_Successfully"/>-->
-<!--                </methods>-->
-<!--            </class>-->
-<!--            <class name="testcases.register.Register01_Verify_Register_Successfully">-->
-<!--                <methods>-->
-<!--                    <include name="Register01_Register_Successfully"/>-->
-<!--                </methods>-->
-<!--            </class>-->
-<!--            <class name="testcases.search.Search_Invalid_KeyWord">-->
-<!--                <methods>-->
-<!--                    <include name="TC02_Search_With_Invalid_Keyword"/>-->
-<!--                </methods>-->
-<!--            </class>-->
-<!--            <class name="testcases.search.Search_Valid_KeyWord">-->
-<!--                <methods>-->
-<!--                    <include name="TC01_Search_With_Valid_Keyword"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <class name="testcases.course.CourseRegistrationNegativeTest">
+                <methods>
+                    <include name="DKKH_01_registerWithoutLogin"/>
+                </methods>
+            </class>
+            <class name="testcases.course.CourseRegistrationMultipleTest">
+                <methods>
+                    <include name="DKKH_03_registerMultipleCourses"/>
+                    <include name="DKKH_06_multipleUsersRegisterSameCourse"/>
+                </methods>
+            </class>
+            <class name="testcases.course.CourseRegistrationAccountTest">
+                <methods>
+                    <include name="DKKH_05_verifyRegisteredCourseInAccount"/>
+                    <include name="DKKH_07_verifyCoursePersistsAfterReLogin"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

@@ -13,6 +13,7 @@ import java.time.Duration;
 public class CourseDetailPage extends CommonPage {
 
     private By byBtnRegisterCourse = By.xpath("//button[text()='Đăng ký']");
+    private By courseName = By.xpath("//h2[@class='course-detail-info__title']");
 
     public CourseDetailPage(WebDriver driver) {
         super(driver);
@@ -36,5 +37,15 @@ public class CourseDetailPage extends CommonPage {
         // Step 4: Wait dialog disappear
         dialog.waitDialogRegisterCourseDisappear(expectedMessage);
 
+    }
+
+    public void clickRegisterButtonAndExpectRedirect() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement btnRegisterCourse = wait.until(ExpectedConditions.elementToBeClickable(byBtnRegisterCourse));
+        btnRegisterCourse.click();
+    }
+
+    public String getCourseName() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(courseName)).getText();
     }
 }
