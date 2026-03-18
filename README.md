@@ -28,7 +28,7 @@ For optimal stability and compatibility with Java 21, this project utilizes:
 Clone the repository and install dependencies:
 
 ```bash
-git clone git@github.com:thanhthuynguyen/booking_care_selenium.git
+git clone git@github.com:thanhthuynguyen/register_course_online.git
 
 ## Development Workflow
 
