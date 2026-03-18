@@ -24,7 +24,9 @@ public class SearchPage extends CommonPage {
 
         sendKeys(txtSearch, keyword);
         Thread.sleep(2000);
+
         driver.findElement(txtSearch).sendKeys(Keys.ENTER);
+        Thread.sleep(2000);
 
         return new ResultPage(driver);
     }

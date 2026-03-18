@@ -7,20 +7,19 @@ import org.testng.annotations.Test;
 import pages.ResultPage;
 import pages.SearchPage;
 
-public class Search_Invalid_KeyWord extends BaseTest {
+public class Search_Special_Character extends BaseTest {
     @Test
-    public void TC02_Search_With_Invalid_Keyword() throws InterruptedException {
-        String keyword = "mncsd123";
+    public void TC03_Search_With_Special_Character() throws InterruptedException {
+        String keyword = "@@@###";
 
         SearchPage searchPage = new SearchPage(DriverFactory.getDriver());
 
         ResultPage resultPage = searchPage.search(keyword);
 
-        Thread.sleep(2000);
-
         String resultText = resultPage.getResultCountText();
-        System.out.println("Search keyword không tồn tại: " + resultText);
 
-        Assert.assertTrue(resultPage.isNoResult(), "kết quả là 0");
+        System.out.println("Search ký tự đặc biệt: " + resultText);
+
+        Assert.assertTrue(resultPage.isNoResult());
     }
 }
