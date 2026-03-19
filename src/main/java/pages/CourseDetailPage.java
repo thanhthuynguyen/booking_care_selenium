@@ -18,6 +18,17 @@ public class CourseDetailPage extends CommonPage {
         super(driver);
     }
 
+    // ✅ FIX:use BASE_URL + Dynamic courseId
+    public void openCourseDetail(String courseId) {
+
+        String url = buildUrl("chitiet/" + courseId);
+
+        driver.get(url);
+
+        new WebDriverWait(driver, Duration.ofSeconds(20))
+                .until(ExpectedConditions.presenceOfElementLocated(By.tagName("body")));
+    }
+
     public void clickbtnRegisterCourse(String expectedMessage) {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -31,10 +42,10 @@ public class CourseDetailPage extends CommonPage {
         CommonDialog dialog = new CommonDialog(driver);
         String actualMessage = dialog.getTextMessageRegisterCourse(expectedMessage);
 
-        Assert.assertEquals(actualMessage, expectedMessage, "Dialog message is not correct!");
+        Assert.assertEquals(actualMessage, expectedMessage,
+                "Dialog message is not correct!");
 
-        // Step 4: Wait dialog disappear
+        // Wait dialog disappear
         dialog.waitDialogRegisterCourseDisappear(expectedMessage);
-
     }
 }

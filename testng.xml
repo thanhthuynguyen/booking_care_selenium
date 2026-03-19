@@ -3,12 +3,22 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="booking_care_selenium">
         <classes>
-            <class name="testcases.course.CourseRegistrationTest">
+            <class name="testcases.course.CourseRegistrationSuccessTest">
                 <methods>
                     <include name="registerCourseSuccessfully"/>
+                </methods>
+            </class>
+            <class name="testcases.course.CourseRegistrationDuplicateTest">
+                <methods>
                     <include name="registerDuplicateCourseShouldShowError"/>
                 </methods>
             </class>
+<!--            <class name="testcases.course.CourseRegistrationWithoutLoginTest">-->
+<!--                <methods>-->
+<!--                    <include name="registerWithoutLogin"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+
             <class name="testcases.login.Login01_Verify_Login_Successfully">
                 <methods>
                     <include name="Login01_Login_Successfully"/>

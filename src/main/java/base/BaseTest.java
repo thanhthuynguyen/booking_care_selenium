@@ -25,6 +25,9 @@ public class BaseTest {
     public void beforeSuite() {
         ExtentReportManager.initializeExtentReports();
     }
+    protected String buildUrl(String path) {
+        return BASE_URL + path;
+    }
 
     @Parameters({"browser"})
     @BeforeMethod
