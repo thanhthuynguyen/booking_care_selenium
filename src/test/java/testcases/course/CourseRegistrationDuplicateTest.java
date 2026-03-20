@@ -29,7 +29,7 @@ public class CourseRegistrationDuplicateTest extends BaseTest {
     // 1. Create a mutable list (ArrayList) from the original array.
     // Use static data so that the data is retained across all test cases.
     private static final List<String> COURSE_POOL = new ArrayList<>(Arrays.asList(
-            "01230123", "09876788", "100999", "1009991"
+            "000123456", "01230123", "09876788", "100999", "1009991", "10099922", "100999999", "1111111111", "111111111111", "11205"
     ));
 
     private static final Random RAND = new Random();
@@ -39,18 +39,18 @@ public class CourseRegistrationDuplicateTest extends BaseTest {
      * Synchronization ensures safety when running tests in parallel.
      */
     public static synchronized String getRandomUniqueCourseId() {
-        // 2. Check if the "warehouse" has run out of IDs.
+        // Check if the "warehouse" has run out of IDs.
         if (COURSE_POOL.isEmpty()) {
             throw new RuntimeException("LỖI: Tất cả Course ID đã được sử dụng hết!");
         }
 
-        // 3. Randomly select any position from the remaining IDs.
+        // Randomly select any position from the remaining IDs.
         int randomIndex = RAND.nextInt(COURSE_POOL.size());
 
-        // 4. Extract and DELETE the element at that position.
-        // The `remove(index)` function both returns the value and removes the element from the list.
+        // Extract and DELETE the element at that position.
         return COURSE_POOL.remove(randomIndex);
     }
+
     private static final String COURSE_ID = getRandomUniqueCourseId();
 
     @Test(description = "DKKH_02 - Register course successfully", groups = {"smoke","course"})
@@ -65,11 +65,19 @@ public class CourseRegistrationDuplicateTest extends BaseTest {
         CourseDetailPage page = new CourseDetailPage(driver);
         page.openCourseDetail(COURSE_ID);
         System.out.println("course ID:" + COURSE_ID);
-        // Step 3: Register
-        By bybtnRegisterCource = By.xpath("//button[text()='Đăng ký']");
+
+        // step 3 : Get course name from course detail page before registration
+        By byDetailTitleElem = By.xpath("//h4[@class='titleDetailCourse']");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement elementDetailTitleElem = wait.until(ExpectedConditions.visibilityOfElementLocated(byDetailTitleElem));
+        String expectedCourseName = elementDetailTitleElem.getText().trim();
+        System.out.println("Tên khóa học tại trang Chi tiết: " + expectedCourseName);
+
+        // Step 4: Register course
+        By bybtnRegisterCource = By.xpath("//button[text()='Đăng ký']");
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(bybtnRegisterCource));
 
+        // step 5: Verify message
         element.click();
         By bySuccesMsg = By.xpath("//div[@class='swal-title']");
         WebElement succesMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(bySuccesMsg));
@@ -83,6 +91,7 @@ public class CourseRegistrationDuplicateTest extends BaseTest {
         WebElement succesMsg2 = wait.until(ExpectedConditions.visibilityOfElementLocated(bySuccesMsg));
         Assert.assertEquals(succesMsg2.getText(), "Đã đăng ký khóa học này rồi!", "Incorrect registration message !");
         Thread.sleep(3000);
+
     }
 
 }

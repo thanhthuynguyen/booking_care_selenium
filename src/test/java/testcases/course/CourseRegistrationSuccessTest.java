@@ -2,7 +2,10 @@ package testcases.course;
 
 import base.BaseTest;
 import drivers.DriverFactory;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -32,33 +35,32 @@ public class CourseRegistrationSuccessTest extends BaseTest {
     // 1. Create a mutable list (ArrayList) from the original array.
     // Use static data so that the data is retained across all test cases.
     private static final List<String> COURSE_POOL = new ArrayList<>(Arrays.asList(
-            "01230123", "09876788", "100999", "1009991"
+            "000123456", "01230123", "09876788", "100999", "1009991", "10099922", "100999999", "1111111111", "111111111111", "11205"
     ));
 
     private static final Random RAND = new Random();
 
     /**
-     * Lấy một Course ID ngẫu nhiên và XÓA nó khỏi pool để đảm bảo không trùng.
-     * synchronized giúp an toàn khi chạy test song song (parallel).
+     * Get a random Course ID and DELETE it from the pool to ensure there are no duplicates.
+     * Synchronization ensures safety when running tests in parallel.
      */
     public static synchronized String getRandomUniqueCourseId() {
-        // 2. Kiểm tra nếu "kho" đã hết sạch ID
+        // Check if the "warehouse" has run out of IDs.
         if (COURSE_POOL.isEmpty()) {
             throw new RuntimeException("LỖI: Tất cả Course ID đã được sử dụng hết!");
         }
 
-        // 3. Random một vị trí bất kỳ trong số những ID còn lại
+        // Randomly select any position from the remaining IDs.
         int randomIndex = RAND.nextInt(COURSE_POOL.size());
 
-        // 4. Lấy ra và XÓA LUÔN phần tử tại vị trí đó
-        // Hàm remove(index) vừa trả về giá trị, vừa xóa phần tử đó khỏi list
+        // Extract and DELETE the element at that position.
         return COURSE_POOL.remove(randomIndex);
     }
 
     private static final String COURSE_ID = getRandomUniqueCourseId();
 
     @Test(description = "DKKH_02 - Register course successfully", groups = {"smoke","course"})
-    public void registerCourseSuccessfully() {
+    public void registerCourseSuccessfully() throws InterruptedException {
 
         WebDriver driver = DriverFactory.getDriver();
 
@@ -70,16 +72,67 @@ public class CourseRegistrationSuccessTest extends BaseTest {
         page.openCourseDetail(COURSE_ID);
         System.out.println("course ID:" + COURSE_ID);
 
-        // Step 3: Register
-        By bybtnRegisterCource = By.xpath("//button[text()='Đăng ký']");
+        // step 3 : Get course name from course detail page before registration
+        By byDetailTitleElem = By.xpath("//h4[@class='titleDetailCourse']");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement elementDetailTitleElem = wait.until(ExpectedConditions.visibilityOfElementLocated(byDetailTitleElem));
+        String expectedCourseName = elementDetailTitleElem.getText().trim();
+        System.out.println("Tên khóa học tại trang Chi tiết: " + expectedCourseName);
+
+        // Step 4: Register course
+        By bybtnRegisterCource = By.xpath("//button[text()='Đăng ký']");
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(bybtnRegisterCource));
 
-        // step 4: Verify message
+        // step 5: Verify message
         element.click();
         By bySuccesMsg = By.xpath("//div[@class='swal-title']");
         WebElement succesMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(bySuccesMsg));
         Assert.assertEquals(succesMsg.getText(), "Đăng kí thành công", "Incorrect registration message !");
 
+        // step 6: Wait for the success message to disappear before proceeding and click to myaccount page to check if the course is listed in the enrolled courses
+        boolean isMsgHidden = wait.until(ExpectedConditions.invisibilityOfElementLocated(bySuccesMsg));
+        if (isMsgHidden) {
+            // Navigate to the user's profile page
+            By byMyAccountLink = By.xpath("//a[@href='/thongtincanhan']");
+            WebElement myAccountLink = wait.until(ExpectedConditions.visibilityOfElementLocated(byMyAccountLink));
+            myAccountLink.click();
+            wait.until(ExpectedConditions.urlContains("/thongtincanhan"));
+
+            // Click on the "Khóa học" button to display the courses
+            By byCourseTab = By.xpath("//button[text()='Khóa học']");
+            WebElement courseTab = wait.until(ExpectedConditions.elementToBeClickable(byCourseTab));
+            courseTab.click();
+
+            // Wait for the list of courses to appear.
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("myCourseItem")));
+
+            // Get a list of all course names currently in My Account.
+            List<WebElement> enrolledCourseNames = driver.findElements(By.xpath("//div[@class='myCourseItem']//h6"));
+            System.out.println("--- Danh sách tên khóa học trong My Account ---");
+            for (int i = 0; i < enrolledCourseNames.size(); i++) {
+                String courseName = enrolledCourseNames.get(i).getText().trim();
+                System.out.println("Khóa học thứ " + (i + 1) + ": " + courseName);
+            }
+
+            // Check the comparison logic.
+            boolean isMatch = enrolledCourseNames.stream()
+                    .anyMatch(elementName -> elementName.getText().trim().equalsIgnoreCase(expectedCourseName));
+
+            // Process notifications based on results.
+            if (isMatch) {
+                // Notification when you pass
+                System.out.println("Đã tìm thấy khóa học '" + expectedCourseName + "' ở trang My Account");
+            } else {
+                // Print the actual list for easier debugging when it fails (Optional)
+                System.out.println("KHÔNG tìm thấy khóa học mong đợi.");
+                System.out.println("Danh sách thực tế đang có: ");
+                enrolledCourseNames.forEach(e -> System.out.println("- " + e.getText().trim()));
+            }
+
+            // Use Assert to mark the Test Case status in the Report (TestNG/JUnit)
+            Assert.assertTrue(isMatch, "FAIL: Khóa học '" + expectedCourseName +
+                    "' không tìm thấy hoặc hiển thị sai tên tại trang My Account!");
+
+        }
     }
 }
