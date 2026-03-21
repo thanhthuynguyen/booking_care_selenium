@@ -2,10 +2,7 @@ package testcases.course;
 
 import base.BaseTest;
 import drivers.DriverFactory;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,17 +15,13 @@ import pages.LoginPage;
 import java.time.Duration;
 import java.util.*;
 
-//import static testcases.course.CourseRegistrationDuplicateTest.rand;
-
-public class CourseRegistrationSuccessTest extends BaseTest {
-
+public class Course_01_RegisterCourse_With_Login_Redirect extends BaseTest {
 
     private static final String ACCOUNT = "thanhthuy01"; // account chưa đăng ký
     private static final String PASSWORD = "Admin@123456";
 
     private void login(WebDriver driver) {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.clickLoginLink();
         loginPage.login(ACCOUNT, PASSWORD);
     }
 
@@ -59,37 +52,43 @@ public class CourseRegistrationSuccessTest extends BaseTest {
 
     private static final String COURSE_ID = getRandomUniqueCourseId();
 
-    @Test(description = "DKKH_02 - Register course successfully", groups = {"smoke","course"})
-    public void registerCourseSuccessfully() throws InterruptedException {
+    @Test(description = "DKKH_01 - Register course with login redirect", groups = {"smoke","course"})
+    public void registerCourseSuccessfully() {
 
         WebDriver driver = DriverFactory.getDriver();
 
-        // Step 1: Login
-        login(driver);
-
-        // Step 2: Open course detail
+        // Step 1: Open course detail
         CourseDetailPage page = new CourseDetailPage(driver);
         page.openCourseDetail(COURSE_ID);
         System.out.println("course ID:" + COURSE_ID);
 
-        // step 3 : Get course name from course detail page before registration
+        // step 2 : Get course name from course detail page before registration
         By byDetailTitleElem = By.xpath("//h4[@class='titleDetailCourse']");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement elementDetailTitleElem = wait.until(ExpectedConditions.visibilityOfElementLocated(byDetailTitleElem));
         String expectedCourseName = elementDetailTitleElem.getText().trim();
         System.out.println("Tên khóa học tại trang Chi tiết: " + expectedCourseName);
 
-        // Step 4: Register course
+        // Step 3: Click "Đăng ký" button
         By bybtnRegisterCource = By.xpath("//button[text()='Đăng ký']");
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(bybtnRegisterCource));
+        WebElement btnFirstClick = wait.until(ExpectedConditions.elementToBeClickable(bybtnRegisterCource));
+        btnFirstClick.click();
 
-        // step 5: Verify message
-        element.click();
+        // Step 4: Login
+        login(driver);
+        System.out.println("Đã đăng nhập thành công với tài khoản: " + ACCOUNT);
+
+        // Step 5: Click "Đăng ký" button again after login
+        WebElement btnSecondClick = wait.until(ExpectedConditions.elementToBeClickable(bybtnRegisterCource));
+        btnSecondClick.click();
+        System.out.println("Đã click Đăng ký lần 2 sau khi đăng nhập");
+
+        // Step 6: Wait and Verify message ---
         By bySuccesMsg = By.xpath("//div[@class='swal-title']");
         WebElement succesMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(bySuccesMsg));
-        Assert.assertEquals(succesMsg.getText(), "Đăng kí thành công", "Incorrect registration message !");
+        Assert.assertEquals(succesMsg.getText(), "Đăng kí thành công", "Thông báo đăng ký không chính xác!");
 
-        // step 6: Wait for the success message to disappear before proceeding and click to myaccount page to check if the course is listed in the enrolled courses
+        // Step 7: Wait for the success message to disappear before proceeding and click to myaccount page to check if the course is listed in the enrolled courses
         boolean isMsgHidden = wait.until(ExpectedConditions.invisibilityOfElementLocated(bySuccesMsg));
         if (isMsgHidden) {
             // Navigate to the user's profile page
@@ -115,8 +114,7 @@ public class CourseRegistrationSuccessTest extends BaseTest {
             }
 
             // Check the comparison logic.
-            boolean isMatch = enrolledCourseNames.stream()
-                    .anyMatch(elementName -> elementName.getText().trim().equalsIgnoreCase(expectedCourseName));
+            boolean isMatch = enrolledCourseNames.stream().anyMatch(elementName -> elementName.getText().trim().equalsIgnoreCase(expectedCourseName));
 
             // Process notifications based on results.
             if (isMatch) {
@@ -124,15 +122,13 @@ public class CourseRegistrationSuccessTest extends BaseTest {
                 System.out.println("Đã tìm thấy khóa học '" + expectedCourseName + "' ở trang My Account");
             } else {
                 // Print the actual list for easier debugging when it fails (Optional)
-                System.out.println("KHÔNG tìm thấy khóa học mong đợi.");
+                System.out.println("KHÔNG tìm thấy khóa học mong đợi: '" + expectedCourseName + "'.");
                 System.out.println("Danh sách thực tế đang có: ");
                 enrolledCourseNames.forEach(e -> System.out.println("- " + e.getText().trim()));
             }
 
             // Use Assert to mark the Test Case status in the Report (TestNG/JUnit)
-            Assert.assertTrue(isMatch, "FAIL: Khóa học '" + expectedCourseName +
-                    "' không tìm thấy hoặc hiển thị sai tên tại trang My Account!");
-
+            Assert.assertTrue(isMatch, "FAIL: Khóa học '" + expectedCourseName + "' không tìm thấy hoặc hiển thị sai tên tại trang My Account!");
         }
     }
 }

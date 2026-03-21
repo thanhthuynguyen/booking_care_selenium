@@ -15,14 +15,15 @@ import pages.LoginPage;
 import java.time.Duration;
 import java.util.*;
 
-public class CourseRegistrationDuplicateTest extends BaseTest {
+//import static sun.security.jgss.GSSUtil.login;
+
+public class Course_02_Register_Duplicate_Course_After_Login_Redirect extends BaseTest {
 
     private static final String ACCOUNT = "thanhthuy01"; // account chưa đăng ký
     private static final String PASSWORD = "Admin@123456";
 
     private void login(WebDriver driver) {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.clickLoginLink();
         loginPage.login(ACCOUNT, PASSWORD);
     }
 
@@ -54,43 +55,48 @@ public class CourseRegistrationDuplicateTest extends BaseTest {
     private static final String COURSE_ID = getRandomUniqueCourseId();
 
     @Test(description = "DKKH_02 - Register course successfully", groups = {"smoke","course"})
-    public void registerDuplicateCourseShouldShowError() throws InterruptedException {
+    public void registerDuplicateCourseShouldShowError() {
 
         WebDriver driver = DriverFactory.getDriver();
 
-        // Step 1: Login
-        login(driver);
-
-        // Step 2: Open course detail
+        // Step 1: Open course detail
         CourseDetailPage page = new CourseDetailPage(driver);
         page.openCourseDetail(COURSE_ID);
         System.out.println("course ID:" + COURSE_ID);
 
-        // step 3 : Get course name from course detail page before registration
+        // step 2 : Get course name from course detail page before registration
         By byDetailTitleElem = By.xpath("//h4[@class='titleDetailCourse']");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement elementDetailTitleElem = wait.until(ExpectedConditions.visibilityOfElementLocated(byDetailTitleElem));
         String expectedCourseName = elementDetailTitleElem.getText().trim();
         System.out.println("Tên khóa học tại trang Chi tiết: " + expectedCourseName);
 
-        // Step 4: Register course
+        // Step 3: Click "Đăng ký" button
         By bybtnRegisterCource = By.xpath("//button[text()='Đăng ký']");
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(bybtnRegisterCource));
+        WebElement btnFirstClick = wait.until(ExpectedConditions.elementToBeClickable(bybtnRegisterCource));
+        btnFirstClick.click();
 
-        // step 5: Verify message
-        element.click();
+        // Step 4: Login
+        login(driver);
+        System.out.println("Đã đăng nhập thành công với tài khoản: " + ACCOUNT);
+
+        // Step 5: Click "Đăng ký" button again after login
+        WebElement btnSecondClick = wait.until(ExpectedConditions.elementToBeClickable(bybtnRegisterCource));
+        btnSecondClick.click();
+        System.out.println("Đã click Đăng ký lần 2 sau khi đăng nhập");
+
+        // Step 6: Wait and Verify message ---
         By bySuccesMsg = By.xpath("//div[@class='swal-title']");
         WebElement succesMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(bySuccesMsg));
-        Assert.assertEquals(succesMsg.getText(), "Đăng kí thành công", "Incorrect registration message !");
+        Assert.assertEquals(succesMsg.getText(), "Đăng kí thành công", "Thông báo đăng ký không chính xác!");
 
-        // Click to register for the course a second time.
+        // Step 7: Click to register for the course a second time.
         boolean isMsgHidden = wait.until(ExpectedConditions.invisibilityOfElementLocated(bySuccesMsg));
         if (isMsgHidden) {
-            element.click();
+            btnSecondClick.click();
         }
         WebElement succesMsg2 = wait.until(ExpectedConditions.visibilityOfElementLocated(bySuccesMsg));
-        Assert.assertEquals(succesMsg2.getText(), "Đã đăng ký khóa học này rồi!", "Incorrect registration message !");
-        Thread.sleep(3000);
+        Assert.assertEquals(succesMsg2.getText(), "Đã đăng ký khóa học này rồi!", "Thông báo đăng ký không chính xác!");
 
     }
 
