@@ -16,4 +16,9 @@ public class CommonPage extends BasePage {
     public TopBarNavigation getTopBarNavigation() {
         return this.topBarNavigation;
     }
+
+    // ADD: helper build URL
+    protected String buildUrl(String path) {
+        return BASE_URL + path;
+    }
 }

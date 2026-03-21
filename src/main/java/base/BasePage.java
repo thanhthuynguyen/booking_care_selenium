@@ -12,9 +12,14 @@ import java.time.Duration;
 public class BasePage {
 
     protected WebDriver driver;
+    protected final String BASE_URL = "https://demo2.cybersoft.edu.vn/";
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    protected String buildUrl(String path) {
+        return BASE_URL + path;
     }
 
     public WebElement waitForVisibilityOfElementLocated(By locator, long timeOutInSec) {
