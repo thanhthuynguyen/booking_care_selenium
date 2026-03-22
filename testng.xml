@@ -19,19 +19,49 @@
                     <include name="Register01_Register_Successfully"/>
                 </methods>
             </class>
-            <class name="testcases.search.Search_Invalid_KeyWord">
-                <methods>
-                    <include name="TC02_Search_With_Invalid_Keyword"/>
-                </methods>
-            </class>
             <class name="testcases.search.Search_Valid_KeyWord">
                 <methods>
                     <include name="TC01_Search_With_Valid_Keyword"/>
                 </methods>
             </class>
+            <class name="testcases.search.Search_Invalid_KeyWord">
+                <methods>
+                    <include name="TC02_Search_With_Invalid_Keyword"/>
+                </methods>
+            </class>
             <class name="testcases.search.Search_Special_Character">
                 <methods>
                     <include name="TC03_Search_With_Special_Character"/>
+                </methods>
+            </class>
+            <class name="testcases.search.Search_Empty_KeyWord">
+                <methods>
+                    <include name="TC04_Search_With_Empty_Keyword"/>
+                </methods>
+            </class>
+            <class name="testcases.search.Search_Text_And_Special_Character">
+                <methods>
+                    <include name="TC05_Search_With_Text_And_Special_Character"/>
+                </methods>
+            </class>
+            <class name="testcases.search.Search_Uppercase_KeyWord">
+                <methods>
+                    <include name="TC06_Search_With_Uppercase_KeyWord"/>
+                </methods>
+            </class>
+            <class name="testcases.search.Search_With_Space_Text">
+                <methods>
+                    <include name="TC07_Search_With_Space_Text"/>
+                </methods>
+            </class>
+            <class name="testcases.search.Search_Long_KeyWord">
+                <methods>
+                    <include name="TC08_Search_With_Long_Keyword"/>
+                </methods>
+            </class>
+            <class name="testcases.search.Search_Space_Enter">
+                <methods>
+                    <include name="TC09_Search_With_Space_Enter"/>
                 </methods>
             </class>
         </classes>

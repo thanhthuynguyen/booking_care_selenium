@@ -17,7 +17,7 @@ public class Search_Empty_KeyWord extends BaseTest {
 
         String currentUrl = DriverFactory.getDriver().getCurrentUrl();
 
-        System.out.println("Current URL: " + currentUrl);
+        System.out.println("Search keyword rỗng " + currentUrl);
 
         Assert.assertFalse(currentUrl.contains("timkiem"),"Keyword rỗng nhưng vẫn chuyển sang trang search");
     }
