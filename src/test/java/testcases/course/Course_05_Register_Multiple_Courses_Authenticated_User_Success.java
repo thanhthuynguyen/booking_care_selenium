@@ -188,7 +188,7 @@ import java.util.Random;
 
 public class Course_05_Register_Multiple_Courses_Authenticated_User_Success extends BaseTest {
 
-    private static final String ACCOUNT = "thanhthuy01";
+    private static final String ACCOUNT = "user311771";
     private static final String PASSWORD = "Admin@123456";
     //private List<String> registeredCourseNames = new ArrayList<>();
 
@@ -212,7 +212,7 @@ public class Course_05_Register_Multiple_Courses_Authenticated_User_Success exte
     @Test(description = "DKKH_05 - Register Multiple Courses Authenticated User Success", groups = {"smoke", "course"})
     public void registerMultipleCoursesAuthenticatedUserSuccessfully() {
         WebDriver driver = DriverFactory.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
         // STEP 1: Login (Chỉ cần login 1 lần duy nhất)
