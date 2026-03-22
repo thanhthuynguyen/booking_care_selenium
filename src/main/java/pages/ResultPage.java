@@ -22,7 +22,7 @@ public class ResultPage extends CommonPage {
     // lấy text hiển thị số kết quả
     public String getResultCountText() {
         waitForVisibilityOfElementLocated(txtResultCount, 10);
-        return getText(txtResultCount);
+        return driver.findElement(txtResultCount).getText();
     }
 
     // lấy danh sách title khóa học
@@ -32,7 +32,7 @@ public class ResultPage extends CommonPage {
     }
 
     // đếm số khóa học hiển thị
-    public int getTotalCources() {
+    public int getTotalCourses() {
         return driver.findElements(courseTitles).size();
     }
 
