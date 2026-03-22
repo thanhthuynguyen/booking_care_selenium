@@ -51,6 +51,7 @@ public class Course_03_RegisterCourse_Authenticated_User_Success extends BaseTes
         By byMenuCourse = By.xpath("//ul[@class='menuHeader']//a[contains(text(),'Khóa học')]");
         WebElement menuCourse = wait.until(ExpectedConditions.visibilityOfElementLocated(byMenuCourse));
         menuCourse.click();
+        LOG.info("Đã click vào Menu Danh sách khóa học.");
         System.out.println("Đã click vào Menu Danh sách khóa học.");
 
         // STEP 3: Find the course in the list and click on it to go to the Details page.
@@ -58,11 +59,13 @@ public class Course_03_RegisterCourse_Authenticated_User_Success extends BaseTes
         // Scroll down to the course (if the list is long) and click.
         WebElement courseItem = wait.until(ExpectedConditions.presenceOfElementLocated(byCourseInList));
         courseItem.click();
+        LOG.info("Đã tìm thấy và click vào khóa học ID: " + targetCourseId);
         System.out.println("Đã tìm thấy và click vào khóa học ID: " + targetCourseId);
 
         // STEP 4: Get the course name from the Details page.
         By byDetailTitle = By.xpath("//h4[@class='titleDetailCourse']");
         String expectedCourseName = wait.until(ExpectedConditions.visibilityOfElementLocated(byDetailTitle)).getText().trim();
+        LOG.info("Tên khóa học mục tiêu: " + expectedCourseName);
         System.out.println("Tên khóa học mục tiêu: " + expectedCourseName);
 
         // STEP 5: Click to register for the course.
@@ -95,8 +98,10 @@ public class Course_03_RegisterCourse_Authenticated_User_Success extends BaseTes
                 .anyMatch(e -> e.getText().trim().equalsIgnoreCase(expectedCourseName));
 
         if (isMatch) {
+            LOG.info("PASS: Tìm thấy khóa học '" + expectedCourseName + "' trong My Account.");
             System.out.println("PASS: Tìm thấy khóa học '" + expectedCourseName + "' trong My Account.");
         } else {
+            LOG.info("FAIL: Không tìm thấy khóa học '" + expectedCourseName + "'.");
             System.out.println("FAIL: Không tìm thấy khóa học '" + expectedCourseName + "'.");
         }
 

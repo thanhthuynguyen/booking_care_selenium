@@ -15,8 +15,6 @@ import pages.LoginPage;
 import java.time.Duration;
 import java.util.*;
 
-//import static sun.security.jgss.GSSUtil.login;
-
 public class Course_02_Register_Duplicate_Course_After_Login_Redirect extends BaseTest {
 
     private static final String ACCOUNT = "thanhthuy01"; // account chưa đăng ký
@@ -62,6 +60,7 @@ public class Course_02_Register_Duplicate_Course_After_Login_Redirect extends Ba
         // Step 1: Open course detail
         CourseDetailPage page = new CourseDetailPage(driver);
         page.openCourseDetail(COURSE_ID);
+        LOG.info("course ID:" + COURSE_ID);
         System.out.println("course ID:" + COURSE_ID);
 
         // step 2 : Get course name from course detail page before registration
@@ -69,6 +68,7 @@ public class Course_02_Register_Duplicate_Course_After_Login_Redirect extends Ba
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement elementDetailTitleElem = wait.until(ExpectedConditions.visibilityOfElementLocated(byDetailTitleElem));
         String expectedCourseName = elementDetailTitleElem.getText().trim();
+        LOG.info("Tên khóa học tại trang Chi tiết: " + expectedCourseName);
         System.out.println("Tên khóa học tại trang Chi tiết: " + expectedCourseName);
 
         // Step 3: Click "Đăng ký" button
@@ -78,11 +78,13 @@ public class Course_02_Register_Duplicate_Course_After_Login_Redirect extends Ba
 
         // Step 4: Login
         login(driver);
+        LOG.info("Đã đăng nhập thành công với tài khoản: " + ACCOUNT);
         System.out.println("Đã đăng nhập thành công với tài khoản: " + ACCOUNT);
 
         // Step 5: Click "Đăng ký" button again after login
         WebElement btnSecondClick = wait.until(ExpectedConditions.elementToBeClickable(bybtnRegisterCource));
         btnSecondClick.click();
+        LOG.info("Đã click Đăng ký lần 2 sau khi đăng nhập");
         System.out.println("Đã click Đăng ký lần 2 sau khi đăng nhập");
 
         // Step 6: Wait and Verify message ---
@@ -97,7 +99,6 @@ public class Course_02_Register_Duplicate_Course_After_Login_Redirect extends Ba
         }
         WebElement succesMsg2 = wait.until(ExpectedConditions.visibilityOfElementLocated(bySuccesMsg));
         Assert.assertEquals(succesMsg2.getText(), "Đã đăng ký khóa học này rồi!", "Thông báo đăng ký không chính xác!");
-
     }
 
 }
