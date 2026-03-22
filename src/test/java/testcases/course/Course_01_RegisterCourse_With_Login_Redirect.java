@@ -19,6 +19,7 @@ public class Course_01_RegisterCourse_With_Login_Redirect extends BaseTest {
 
     private static final String ACCOUNT = "thanhthuy01"; // account chưa đăng ký
     private static final String PASSWORD = "Admin@123456";
+    //protected List<String> registeredCourseNames = new ArrayList<>();
 
     private void login(WebDriver driver) {
         LoginPage loginPage = new LoginPage(driver);
@@ -52,7 +53,7 @@ public class Course_01_RegisterCourse_With_Login_Redirect extends BaseTest {
 
     private static final String COURSE_ID = getRandomUniqueCourseId();
 
-    @Test(description = "DKKH_01 - Register course with login redirect", groups = {"smoke","course"})
+    @Test(description = "DKKH_01 - Register course with login redirect", groups = {"smoke", "course"})
     public void registerCourseSuccessfully() {
 
         WebDriver driver = DriverFactory.getDriver();
@@ -60,6 +61,7 @@ public class Course_01_RegisterCourse_With_Login_Redirect extends BaseTest {
         // Step 1: Open course detail
         CourseDetailPage page = new CourseDetailPage(driver);
         page.openCourseDetail(COURSE_ID);
+        LOG.info("course ID:" + COURSE_ID);
         System.out.println("course ID:" + COURSE_ID);
 
         // step 2 : Get course name from course detail page before registration
@@ -67,6 +69,7 @@ public class Course_01_RegisterCourse_With_Login_Redirect extends BaseTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement elementDetailTitleElem = wait.until(ExpectedConditions.visibilityOfElementLocated(byDetailTitleElem));
         String expectedCourseName = elementDetailTitleElem.getText().trim();
+        LOG.info("Tên khóa học tại trang Chi tiết: " + expectedCourseName);
         System.out.println("Tên khóa học tại trang Chi tiết: " + expectedCourseName);
 
         // Step 3: Click "Đăng ký" button
@@ -76,11 +79,13 @@ public class Course_01_RegisterCourse_With_Login_Redirect extends BaseTest {
 
         // Step 4: Login
         login(driver);
+        LOG.info("Đã đăng nhập thành công với tài khoản: " + ACCOUNT);
         System.out.println("Đã đăng nhập thành công với tài khoản: " + ACCOUNT);
 
         // Step 5: Click "Đăng ký" button again after login
         WebElement btnSecondClick = wait.until(ExpectedConditions.elementToBeClickable(bybtnRegisterCource));
         btnSecondClick.click();
+        LOG.info("Đã click Đăng ký lần 2 sau khi đăng nhập");
         System.out.println("Đã click Đăng ký lần 2 sau khi đăng nhập");
 
         // Step 6: Wait and Verify message ---
@@ -108,8 +113,10 @@ public class Course_01_RegisterCourse_With_Login_Redirect extends BaseTest {
             // Get a list of all course names currently in My Account.
             List<WebElement> enrolledCourseNames = driver.findElements(By.xpath("//div[@class='myCourseItem']//h6"));
             System.out.println("--- Danh sách tên khóa học trong My Account ---");
+            LOG.info("--- Danh sách tên khóa học trong My Account ---");
             for (int i = 0; i < enrolledCourseNames.size(); i++) {
                 String courseName = enrolledCourseNames.get(i).getText().trim();
+                LOG.info("Khóa học thứ " + (i + 1) + ": " + courseName);
                 System.out.println("Khóa học thứ " + (i + 1) + ": " + courseName);
             }
 
@@ -118,10 +125,11 @@ public class Course_01_RegisterCourse_With_Login_Redirect extends BaseTest {
 
             // Process notifications based on results.
             if (isMatch) {
-                // Notification when you pass
+                LOG.info("Đã tìm thấy khóa học '" + expectedCourseName + "' ở trang My Account");
                 System.out.println("Đã tìm thấy khóa học '" + expectedCourseName + "' ở trang My Account");
             } else {
                 // Print the actual list for easier debugging when it fails (Optional)
+                LOG.info("KHÔNG tìm thấy khóa học mong đợi: '" + expectedCourseName + "'.");
                 System.out.println("KHÔNG tìm thấy khóa học mong đợi: '" + expectedCourseName + "'.");
                 System.out.println("Danh sách thực tế đang có: ");
                 enrolledCourseNames.forEach(e -> System.out.println("- " + e.getText().trim()));

@@ -59,11 +59,13 @@ public class Course_04_Register_Duplicate_Course_Authenticated_User_Error extend
         // Scroll down to the course (if the list is long) and click.
         WebElement courseItem = wait.until(ExpectedConditions.presenceOfElementLocated(byCourseInList));
         courseItem.click();
+        LOG.info("Đã tìm thấy và click vào khóa học ID: " + targetCourseId);
         System.out.println("Đã tìm thấy và click vào khóa học ID: " + targetCourseId);
 
         // STEP 4: Get the course name from the Details page.
         By byDetailTitle = By.xpath("//h4[@class='titleDetailCourse']");
         String expectedCourseName = wait.until(ExpectedConditions.visibilityOfElementLocated(byDetailTitle)).getText().trim();
+        LOG.info("Tên khóa học mục tiêu: " + expectedCourseName);
         System.out.println("Tên khóa học mục tiêu: " + expectedCourseName);
 
         // STEP 5: Click to register for the course.
