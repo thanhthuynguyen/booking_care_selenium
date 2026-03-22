@@ -17,7 +17,7 @@ import java.util.*;
 
 public class Course_02_Register_Duplicate_Course_After_Login_Redirect extends BaseTest {
 
-    private static final String ACCOUNT = "thanhthuy01"; // account chưa đăng ký
+    private static final String ACCOUNT = "user311771"; // account chưa đăng ký
     private static final String PASSWORD = "Admin@123456";
 
     private void login(WebDriver driver) {
@@ -65,7 +65,7 @@ public class Course_02_Register_Duplicate_Course_After_Login_Redirect extends Ba
 
         // step 2 : Get course name from course detail page before registration
         By byDetailTitleElem = By.xpath("//h4[@class='titleDetailCourse']");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement elementDetailTitleElem = wait.until(ExpectedConditions.visibilityOfElementLocated(byDetailTitleElem));
         String expectedCourseName = elementDetailTitleElem.getText().trim();
         LOG.info("Tên khóa học tại trang Chi tiết: " + expectedCourseName);

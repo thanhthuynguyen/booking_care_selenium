@@ -28,6 +28,11 @@
                     <include name="registerMultipleCoursesAuthenticatedUserSuccessfully"/>
                 </methods>
             </class>
+            <class name="testcases.course.Course_06_Register_New_User_And_Enroll_Course_From_Detail_Page">
+                <methods>
+                    <include name="registerNewUserAndEnrollCourseFromDetailPageSuccessfully"/>
+                </methods>
+            </class>
 
             <class name="testcases.login.Login01_Verify_Login_Successfully">
                 <methods>

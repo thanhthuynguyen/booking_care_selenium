@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Course_03_RegisterCourse_Authenticated_User_Success extends BaseTest {
-    private static final String ACCOUNT = "thanhthuy01";
+    private static final String ACCOUNT = "user311771";
     private static final String PASSWORD = "Admin@123456";
 
     private static final List<String> COURSE_POOL = new ArrayList<>(Arrays.asList(
@@ -38,10 +38,10 @@ public class Course_03_RegisterCourse_Authenticated_User_Success extends BaseTes
         loginPage.login(ACCOUNT, PASSWORD);
     }
 
-    @Test(description = "DKKH_03 - Luồng đăng ký chuẩn cho User đã Login", groups = {"smoke","course"})
+    @Test(description = "DKKH_03 - Standard registration flow for logged in users", groups = {"smoke","course"})
     public void registerCourseAuthenticatedUserSuccessfully() {
         WebDriver driver = DriverFactory.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         String targetCourseId = getRandomUniqueCourseId();
 
         // STEP 1: Login

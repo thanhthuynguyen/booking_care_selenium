@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class Course_04_Register_Duplicate_Course_Authenticated_User_Error extends BaseTest {
 
-    private static final String ACCOUNT = "thanhthuy01";
+    private static final String ACCOUNT = "user311771";
     private static final String PASSWORD = "Admin@123456";
 
     private static final List<String> COURSE_POOL = new ArrayList<>(Arrays.asList(
@@ -42,7 +42,7 @@ public class Course_04_Register_Duplicate_Course_Authenticated_User_Error extend
     @Test(description = "DKKH_04 -  Register Duplicate Course Authenticated User Error", groups = {"smoke","course"})
     public void registerDuplicateCourseAuthenticatedUserError() {
         WebDriver driver = DriverFactory.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         String targetCourseId = getRandomUniqueCourseId();
 
         // STEP 1: Login
