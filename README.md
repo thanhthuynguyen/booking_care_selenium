@@ -1,4 +1,4 @@
-# Booking care
+# Register course online
 
 Automated testing framework for Booking Care platform built with Selenium WebDriver, focusing on scalability and robust
 test coverage.
