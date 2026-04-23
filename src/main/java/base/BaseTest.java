@@ -64,11 +64,6 @@ public class BaseTest {
         WebDriver driver = DriverFactory.getDriver();
 
         if (driver != null) {
-            // Chỉ thực hiện Cleanup nếu test case thuộc group "course"
-            List<String> groups = Arrays.asList(result.getMethod().getGroups());
-            if (groups.contains("course")) {
-                cleanAllEnrolledCourses(driver);
-            }
 
             // Chụp ảnh màn hình nếu test Fail
             if (result.getStatus() == ITestResult.FAILURE) {
@@ -77,6 +72,12 @@ public class BaseTest {
             }
 
             LOG.info("Quitting driver...");
+
+            // Chỉ thực hiện Cleanup nếu test case thuộc group "course"
+            List<String> groups = Arrays.asList(result.getMethod().getGroups());
+            if (groups.contains("course")) {
+                cleanAllEnrolledCourses(driver);
+            }
             driver.quit();
         }
         DriverFactory.removeDriver();
@@ -105,7 +106,7 @@ public class BaseTest {
                 List<WebElement> buttons = driver.findElements(By.xpath(xpathCancelBtn));
 
                 if (buttons.isEmpty()) {
-                    LOG.info("✅ Cleanup hoàn tất: My Account đã sạch sẽ.");
+                    LOG.info("Cleanup hoàn tất: My Account đã sạch sẽ.");
                     break;
                 }
 
@@ -134,7 +135,7 @@ public class BaseTest {
                 }
             }
         } catch (Exception e) {
-            LOG.error("❌ Cleanup thất bại nghiêm trọng: " + e.getMessage());
+            LOG.error("Cleanup thất bại nghiêm trọng: " + e.getMessage());
         }
     }
 
